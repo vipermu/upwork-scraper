@@ -9,15 +9,14 @@ from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 import extract as extract
-
-HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+import requests_settings as req_settings
 
 
 def get_soup_from_url(
     url: str
 ) -> BeautifulSoup:
-    resp = requests.get(url, headers=HEADERS)
+    headers = {"User-Agent": random.choice(req_settings.USER_AGENT_LIST)}
+    resp = requests.get(url, headers=headers, proxies=req_settings.PROXY_DICT)
     soup = BeautifulSoup(resp.text, 'lxml')
     return soup
 
