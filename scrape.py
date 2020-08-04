@@ -16,7 +16,8 @@ def get_soup_from_url(
     url: str
 ) -> BeautifulSoup:
     headers = {"User-Agent": random.choice(req_settings.USER_AGENT_LIST)}
-    resp = requests.get(url, headers=headers, proxies=req_settings.PROXY_DICT)
+    proxies = {"http": random.choice(req_settings.PROXY_LIST)}
+    resp = requests.get(url, headers=headers, proxies=proxies)
     soup = BeautifulSoup(resp.text, 'lxml')
     return soup
 
@@ -68,7 +69,7 @@ def get_data_from_upwork():
         data_dict_list += extracted_data_dict_list
 
         page_num += 1
-        time.sleep(random.randrange(2l 10))
+        time.sleep(random.randrange(2, 10))
 
     return data_dict_list
 
