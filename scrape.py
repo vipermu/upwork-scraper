@@ -5,7 +5,7 @@ from typing import *
 
 import requests
 import bs4
-import tqdm
+from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 import extract as extract
