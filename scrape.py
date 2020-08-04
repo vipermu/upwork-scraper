@@ -68,7 +68,7 @@ def get_data_from_upwork():
         data_dict_list += extracted_data_dict_list
 
         page_num += 1
-        time.sleep(random.randrange(2,5))
+        time.sleep(random.randrange(2l 10))
 
     return data_dict_list
 
