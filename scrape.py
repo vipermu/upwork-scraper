@@ -77,7 +77,12 @@ def get_data_from_upwork():
 
         referer = url
         page_num += 1
-        time.sleep(random.randrange(3, 10))
+
+        if page_num % 3 == 0:
+            time.sleep(random.randrange(10,20))
+        else:
+            time.sleep(random.randrange(5, 10))
+
 
     return data_dict_list
 
