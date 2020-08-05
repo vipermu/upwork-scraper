@@ -7,6 +7,7 @@ import requests
 import bs4
 from tqdm import tqdm
 from bs4 import BeautifulSoup
+from pycookiecheat import chrome_cookies
 
 import extract as extract
 import requests_settings as req_settings
@@ -17,7 +18,9 @@ def get_soup_from_url(
 ) -> BeautifulSoup:
     headers = {"User-Agent": random.choice(req_settings.USER_AGENT_LIST)}
     proxies = {"http": random.choice(req_settings.PROXY_LIST)}
-    resp = requests.get(url, headers=headers, proxies=proxies)
+    cookies = chrome_cookies(url=url)
+
+    resp = requests.get(url, headers=headers, proxies=proxies, cookies=cookies)
     soup = BeautifulSoup(resp.text, 'lxml')
     return soup
 
@@ -69,7 +72,7 @@ def get_data_from_upwork():
         data_dict_list += extracted_data_dict_list
 
         page_num += 1
-        time.sleep(random.randrange(2, 10))
+        time.sleep(random.randrange(3, 10))
 
     return data_dict_list
 
