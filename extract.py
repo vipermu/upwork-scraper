@@ -72,6 +72,7 @@ def fixed_price_from_soup(
         return
 
     fixed_prize = fixed_prize_soup.text.strip()
+    fixed_prize = fixed_prize.replace(",", "'")
 
     return fixed_prize
 
@@ -102,7 +103,7 @@ def experience_from_soup(
 
 def skills_from_soup(
     soup: bs4.BeautifulSoup,
-) -> List[str]:
+) -> str:
     """
     Get skills from soup element.
 
@@ -110,7 +111,7 @@ def skills_from_soup(
         soup (bs4.BeautifulSoup): soup element.
 
     Returns:
-        List[str]: list of strings with the skill information from soup.
+        str: strings representing the skills information from soup.
     """
     skill_class_name = "js-skill d-inline-block"
     skill_soup_list = soup.find_all('span', class_=skill_class_name)
@@ -119,5 +120,6 @@ def skills_from_soup(
         return
     skill_list = [sill_soup.text.strip() for sill_soup in skill_soup_list]
     skill_list = [process.text(skill) for skill in skill_list]
+    skill = ' - '.join(skill_list)
 
-    return skill_list
+    return skill
