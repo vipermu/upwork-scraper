@@ -14,10 +14,13 @@ import requests_settings as req_settings
 
 
 def get_soup_from_url(
-    url: str
+    url: str,
+    referer:str,
 ) -> BeautifulSoup:
-    headers = {"User-Agent": random.choice(req_settings.USER_AGENT_LIST)}
-    proxies = {"http": random.choice(req_settings.PROXY_LIST)}
+    headers = {
+        "User-Agent": random.choice(req_settings.USER_AGENT_LIST),
+        "referer": referer,
+    }
     cookies = chrome_cookies(url=url)
 
     resp = requests.get(url, headers=headers, proxies=proxies, cookies=cookies)
@@ -54,15 +57,16 @@ def get_data_from_upwork():
     keyword = "writing"
     page_num = 1
     data_dict_list = []
+    referer = random.choice(req_settings.REFERER_LIST)
 
     while True:
         print(f"Extracting page {page_num}")
         url = (
             "https://www.upwork.com/search/jobs/?"
-            f"page={page_num}&q={keyword}&sort=recency"
+            f"page={page_num}&q={keyword}"
         )
 
-        soup = get_soup_from_url(url=url)
+        soup = get_soup_from_url(url=url, referer=referer)
         extracted_data_dict_list = get_data_from_soup(soup)
 
         if not extracted_data_dict_list:
@@ -71,6 +75,7 @@ def get_data_from_upwork():
 
         data_dict_list += extracted_data_dict_list
 
+        referer = url
         page_num += 1
         time.sleep(random.randrange(3, 10))
 
