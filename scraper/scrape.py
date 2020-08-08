@@ -60,35 +60,16 @@ def get_data_from_soup(
 
 
 def get_data_from_upwork():
-    keyword = "writing"
-    page_num = 1
     data_dict_list = []
-    referer = random.choice(req_settings.REFERER_LIST)
+    for file_name in glob.glob('upwork_data/*.html'):
+        print(f"Processing {file_name}...")
+        with open(file_name, 'r') as html_file:
+            html_content = html_file.read()
+        soup = BeautifulSoup(html_content, 'lxml')
 
-    while True:
-        print(f"Extracting page {page_num}")
-        url = (
-            "https://www.upwork.com/search/jobs/?"
-            f"page={page_num}&q={keyword}"
-        )
-
-        soup = get_soup_from_url(url=url, referer=referer)
         extracted_data_dict_list = get_data_from_soup(soup)
 
-        if not extracted_data_dict_list:
-            print(f"{page_num} pages extracted.")
-            break
-
         data_dict_list += extracted_data_dict_list
-
-        referer = url
-        page_num += 1
-
-        if page_num % 3 == 0:
-            time.sleep(random.randrange(10,20))
-        else:
-            time.sleep(random.randrange(5, 10))
-
 
     return data_dict_list
 
