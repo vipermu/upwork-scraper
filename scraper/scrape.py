@@ -83,8 +83,10 @@ def write_csv_from_data_dict_list(data_dict_list) -> None:
         csv_file.write(header)
 
         for data_dict in tqdm(data_dict_list):
-            item_list = ','.join(
-                [f'{item}' for item in data_dict.values()]) + '\n'
+            item_list = list(map(lambda item: '"' + item + '"',
+                                 [f'{item}' for item in data_dict.values()]))
+
+            item_list = ','.join(item_list) + '\n'
             csv_file.write(item_list)
 
 
