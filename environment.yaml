@@ -11,4 +11,3 @@ dependencies:
   - pip=20.1.1
   - pip:
     - lxml==4.5.2
-    - pycookiecheat==0.4.5
