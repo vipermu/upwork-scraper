@@ -48,6 +48,12 @@ def get_data_from_soup(
         data_dict['fixed_price'] = extract.fixed_price_from_soup(section_soup)
         data_dict['experience'] = extract.experience_from_soup(section_soup)
         data_dict['skills'] = extract.skills_from_soup(section_soup)
+        data_dict['duration'] = extract.duration_from_soup(section_soup)
+        data_dict['hourly_prize'] = extract.hourly_prize_from_soup(
+            section_soup)
+        data_dict['proposals'] = extract.proposals_from_soup(section_soup)
+        data_dict['spent'] = extract.spent_from_soup(section_soup)
+        data_dict['location'] = extract.location_from_soup(section_soup)
         data_dict_list.append(data_dict)
 
     return data_dict_list
