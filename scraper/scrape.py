@@ -32,11 +32,10 @@ def get_data_from_soup(
     soup: bs4.BeautifulSoup,
 ) -> List[Dict[str, Any]]:
     section_soup_list = soup.find_all("section")
-
     if not len(section_soup_list) > 3:
-        return
-    else:
-        # NOTE: positions 0, -2 and -1 are not
+        print("INVALID SOUP")
+        return None
+
         section_soup_list = section_soup_list[1:-2]
 
     data_dict_list = []
