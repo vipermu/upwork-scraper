@@ -1,32 +1,11 @@
 import csv
-import time
-import random
 from typing import *
+import glob
 
-import requests
 import bs4
 from tqdm import tqdm
 from bs4 import BeautifulSoup
-from pycookiecheat import chrome_cookies
-
 import extract as extract
-import requests_settings as req_settings
-
-
-def get_soup_from_url(
-    url: str,
-    referer:str,
-) -> BeautifulSoup:
-    headers = {
-        "User-Agent": random.choice(req_settings.USER_AGENT_LIST),
-        "referer": referer,
-    }
-    cookies = chrome_cookies(url=url)
-
-    resp = requests.get(url, headers=headers, proxies=proxies, cookies=cookies)
-    soup = BeautifulSoup(resp.text, 'lxml')
-    return soup
-
 
 def get_data_from_soup(
     soup: bs4.BeautifulSoup,
@@ -36,7 +15,7 @@ def get_data_from_soup(
         print("INVALID SOUP")
         return None
 
-        section_soup_list = section_soup_list[1:-2]
+    section_soup_list = section_soup_list[1:-2]
 
     data_dict_list = []
 
